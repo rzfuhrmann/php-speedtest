@@ -239,7 +239,7 @@
 			}
 
 			private function logtxt($txt, $lvl = "info"){
-				if ($this->debug || $lvl = 'error'){
+				if ($this->debug || $lvl == 'error'){
 					echo '['.date("H:i:s").'] '.$txt."\n";
 				}
 			}

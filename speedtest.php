@@ -18,6 +18,9 @@
 				if (isset($opts['source_address'])){
 					$this->source_address = $opts['source_address'];
 				}
+				if (isset($opts['debug']) && is_bool($opts['debug'])){
+					$this->debug = $opts['debug'];
+				}
 			}
 
 			private function getOpts(){

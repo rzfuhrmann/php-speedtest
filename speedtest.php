@@ -2,8 +2,20 @@
 	namespace RZFuhrmann;
 	if (!class_exists('RZFuhrmann\Speedtest'))  {
 		class Speedtest {
-			public function __construct (){
+			private $source_address = null;
+			
+			public function __construct ($opts = array()){
+				$this->applyOpts($opts);
+			}
 
+			public function setOpt($opt, $value){
+				$this->applyOpts(array($opt => $value));
+			}
+
+			private function applyOpts($opts = array()){
+				if (isset($opts['source_address'])){
+					$this->source_address = $opts['source_address'];
+				}
 			}
 
 			public function test(){
@@ -45,7 +57,6 @@
 						}
 					}
 				}
-
 				return $result;
 			}
 
@@ -91,7 +102,7 @@
 				curl_setopt($ch, CURLOPT_URL, $url); 
 				curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 				curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE); 
-				curl_setopt($ch, CURLOPT_INTERFACE, "192.168.1.45");
+				if ($this->source_address) curl_setopt($ch, CURLOPT_INTERFACE, $this->source_address);
 				curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36');
 				$raw = curl_exec($ch); 
 
